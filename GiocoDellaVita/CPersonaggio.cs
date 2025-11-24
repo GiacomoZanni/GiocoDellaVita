@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GiocoDellaVita
 {
-    abstract class CPersonaggio
+    abstract class CPersonaggio : IAnimale
     {
         private int _salute;
         private int _stamina;
-        private int[,] _posizione;
+        protected int[,] _posizione;
 
         public int Salute
         {
@@ -26,6 +26,14 @@ namespace GiocoDellaVita
 
         public CPersonaggio() { }
 
+        public void Mangia()
+        {
+            throw new NotImplementedException();
+        }
 
+        public void Muoviti()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
