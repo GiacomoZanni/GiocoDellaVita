@@ -9,7 +9,7 @@
             {
                 for (int l = 0; l < 7; l++)
                 {
-                    tabellone[i, l] = "0-1";
+                    tabellone[i, l] = "O";
                 }
             }
             for (int i = 0; i < 7; i++)
@@ -20,6 +20,16 @@
                 }
                 Console.WriteLine();
             }
+        }
+
+        public void LeoneMorto()
+        {
+            Console.WriteLine("Oh no! La stanchezza ha avuto la meglio!");
+        }
+
+        public void CongiglioMorto()
+        {
+            Console.WriteLine("Oh no! Il leone mi ha preso!");
         }
     }
 }

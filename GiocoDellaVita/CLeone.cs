@@ -14,5 +14,28 @@ namespace GiocoDellaVita
             Stamina = 25;
             _posizione = posizione;
         }
+
+        public override void Mangia()
+        {
+            if (Salute <= 43)
+            {
+                Salute += 7;
+            }
+            else if (Salute <= 50 && Salute > 43)
+            {
+                Salute = 50;
+            }
+        }
+
+        public override void Muoviti(int[,] posizione)
+        {
+            if (Stamina > 0)
+            {
+                _posizione = posizione;
+                Stamina -= 1;
+            }
+        }
+
+
     }
 }

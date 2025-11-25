@@ -8,6 +8,8 @@ namespace GiocoDellaVita
 {
     abstract class CPersonaggio : IAnimale
     {
+        public event EventHandler SonoMorto;
+
         private int _salute;
         private int _stamina;
         protected int[,] _posizione;
@@ -26,12 +28,12 @@ namespace GiocoDellaVita
 
         public CPersonaggio() { }
 
-        public void Mangia()
+        public virtual void Mangia()
         {
             throw new NotImplementedException();
         }
 
-        public void Muoviti()
+        public virtual void Muoviti(int[,] posizione)
         {
             throw new NotImplementedException();
         }
