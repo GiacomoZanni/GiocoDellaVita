@@ -1,41 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GiocoDellaVita
+﻿namespace GiocoDellaVita
 {
     internal class CLeone : CPersonaggio
     {
-        public CLeone(int[,] posizione) : base()
+        public CLeone(int x, int y) : base()
         {
-            Salute = 50;
-            Stamina = 25;
-            _posizione = posizione;
+            Energia = 35;
+            _x = x;
+            _y = y;
         }
 
         public override void Mangia()
         {
-            if (Salute <= 43)
+            if (Energia <= 25)
             {
-                Salute += 7;
+                Energia += 10;
             }
-            else if (Salute <= 50 && Salute > 43)
+            else if (Energia <= 35 && Energia > 25)
             {
-                Salute = 50;
+                Energia = 35;
             }
         }
 
-        public override void Muoviti(int[,] posizione)
+        public override void Muoviti(int x, int y)
         {
-            if (Stamina > 0)
+            if (Energia > 0)
             {
-                _posizione = posizione;
-                Stamina -= 1;
+                _x = x;
+                _y = y;
+                Energia -= 1;
+            }
+            else
+            {
+                OnSonoMorto();
             }
         }
 
-
+        public void MuovitiCasuale()
+        {
+            Random rnd = new Random;
+            int direzione = rnd.Next(0, 7);
+            switch (direzione)
+            {
+                case 0:
+                    _x -= 1;
+                    _y -= 1;
+                    break;
+                case 1:
+                    _y -= 1;
+                    break;
+                case 2:
+                    _x += 1;
+                    _y -= 1;
+                    break;
+                case 3:
+                    _x += 1;
+                    break;
+                case 4:
+                    _x += 1;
+                    _y += 1;
+                    break;
+                case 5:
+                    _y += 1;
+                    break;
+                case 6:
+                    _x -= 1;
+                    _y += 1;
+                    break;
+                case 7:
+                    _x -= 1;
+                    break;
+            }
+        }
     }
 }

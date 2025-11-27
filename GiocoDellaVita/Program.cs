@@ -20,6 +20,22 @@
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("Vuoi essere il coniglio o il leone? (c/l)");
+            string personaggio = Console.ReadLine();
+            if (personaggio == "c")
+            {
+                CConiglio coniglio = new CConiglio( 0, 0 );
+                tabellone[0, 0] = "c";
+                tabellone[7, 7] = "l";
+                CLeone leone = new CLeone(7, 7);
+            }
+            else if (personaggio == "l")
+            {
+                CLeone leone = new CLeone(7, 7);
+                tabellone[0, 0] = "c";
+                tabellone[7, 7] = "l";
+                CConiglio coniglio = new CConiglio(0, 0);
+            }
         }
 
         public void LeoneMorto()

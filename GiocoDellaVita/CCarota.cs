@@ -8,11 +8,11 @@ namespace GiocoDellaVita
 {
     internal class CCarota : CPersonaggio
     {
-        public CCarota(int[,] posizione) : base()
+        public CCarota(int x, int y) : base()
         {
-            Salute = 10;
-            Stamina = 10;
-            _posizione = posizione;
+            Energia = 10;
+            _x = x;
+            _y = y;
         }
     }
 }

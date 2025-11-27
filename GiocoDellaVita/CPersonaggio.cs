@@ -10,20 +10,14 @@ namespace GiocoDellaVita
     {
         public event EventHandler SonoMorto;
 
-        private int _salute;
-        private int _stamina;
-        protected int[,] _posizione;
+        private int _energia;
+        protected int _x;
+        protected int _y;
 
-        public int Salute
+        public int Energia
         {
-            get { return _salute; }
-            set { _salute = value; }
-        }
-
-        public int Stamina
-        {
-            get { return _stamina; }
-            set { _stamina = value; }
+            get { return _energia; }
+            set { _energia = value; }
         }
 
         public CPersonaggio() { }
@@ -33,9 +27,14 @@ namespace GiocoDellaVita
             throw new NotImplementedException();
         }
 
-        public virtual void Muoviti(int[,] posizione)
+        public virtual void Muoviti(int x, int y)
         {
             throw new NotImplementedException();
+        }
+
+        protected virtual void OnSonoMorto()
+        {
+            SonoMorto?.Invoke(this, EventArgs.Empty);
         }
     }
 }

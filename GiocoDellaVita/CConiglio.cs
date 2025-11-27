@@ -8,11 +8,11 @@ namespace GiocoDellaVita
 {
     internal class CConiglio : CPersonaggio
     {
-        public CConiglio(int[,] posizione) : base()
+        public CConiglio(int x, int y) : base()
         {
-            Salute = 25;
-            Stamina = 35;
-            _posizione = posizione;
+            Energia = 25;
+            _x = x;
+            _y = y;
         }
     }
 }
