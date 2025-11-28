@@ -37,8 +37,8 @@
 
         public void MuovitiCasuale()
         {
-            Random rnd = new Random;
-            int direzione = rnd.Next(0, 7);
+            Random rnd = new Random();
+            int direzione = rnd.Next(0, 8);
             switch (direzione)
             {
                 case 0:
