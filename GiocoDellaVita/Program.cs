@@ -2,276 +2,137 @@
 {
     internal class Program
     {
+        static Random rnd = new Random();
         static void Main(string[] args)
         {
             string[,] tabellone = new string[7, 7];
-            for (int i = 0; i < 7; i++)
-            {
-                for (int l = 0; l < 7; l++)
-                {
-                    tabellone[i, l] = "-";
-                }
-            }
-            for (int i = 0; i < 7; i++)
-            {
-                for (int l = 0; l < 7; l++)
-                {
-                    Console.Write($"{tabellone[i, l]} ");
-                }
-                Console.WriteLine();
-            }
+
+            InizializzaTabellone(tabellone);
+
+            CLeone leone = new CLeone(6, 6);
+            CConiglio coniglio = new CConiglio(0, 0);
+
+            CCarota carota = GeneraCarota(tabellone, leone, coniglio);
+
+            leone.PersonaggioMorto += PersonaggioMorto;
+            coniglio.PersonaggioMorto += PersonaggioMorto;
+            carota.PersonaggioMorto += CarotaMorta;
+
             Console.WriteLine("Vuoi essere il coniglio o il leone? (c/l)");
             string personaggio = Console.ReadLine();
-            if (personaggio == "c")
+
+            while (leone.Energia > 0 && coniglio.Energia > 0)
             {
-                CConiglio coniglio = new CConiglio( 0, 0 );
-                tabellone[0, 0] = "c";
-                tabellone[6, 6] = "l";
-                CLeone leone = new CLeone(7, 7);
-                Random rnd = new Random();
-                int x = rnd.Next(0, 7);
-                Random rand = new Random();
-                int y = rnd.Next(0, 7);
-                CCarota carota = new CCarota(x, y);
-                for (int i = 0; i < 7; i++)
+                Console.Clear();
+                AggiornaTabellone(tabellone, coniglio, leone, carota);
+                StampaTabellone(tabellone);
+
+                if (personaggio == "c")
                 {
-                    for (int l = 0; l < 7; l++)
+                    Console.WriteLine("Muovi il coniglio (1-8):");
+                    int dir = int.Parse(Console.ReadLine());
+                    coniglio.Muoviti(dir);
+
+                    // La carota perde energia se il coniglio si muove
+                    carota.Energia--;
+                    carota.VerificaMorte();
+
+                    // Coniglio mangia la carota
+                    if (coniglio.X == carota.X && coniglio.Y == carota.Y)
                     {
-                        tabellone[i, l] = "-";
+                        coniglio.Mangia();
+                        Console.WriteLine("Il coniglio ha mangiato la carota!");
+                        carota = RespawnCarota(tabellone, leone, coniglio);
                     }
-                }
-                for (int i = 0; i < 7; i++)
-                {
-                    for (int l = 0; l < 7; l++)
+
+                    // Movimento leone
+                    leone.Muoviti(rnd.Next(1, 9));
+
+                    if (coniglio.X == leone.X && coniglio.Y == leone.Y)
                     {
-                        Console.Write($"{tabellone[i, l]} ");
-                    }
-                    Console.WriteLine();
-                }
-            }
-            else if (personaggio == "l")
-            {
-                CLeone leone = new CLeone(7, 7);
-                tabellone[0, 0] = "c";
-                tabellone[6, 6] = "l";
-                CConiglio coniglio = new CConiglio(0, 0);
-                Random rnd = new Random();
-                int x = rnd.Next(0, 7);
-                Random rand = new Random();
-                int y = rnd.Next(0, 7);
-                CCarota carota = new CCarota(x, y);
-                for (int v = 0; v < 7; v++)
-                {
-                    for (int l = 0; l < 7; l++)
-                    {
-                        tabellone[v, l] = "-";
-                    }
-                }
-                for (int v = 0; v < 7; v++)
-                {
-                    for (int l = 0; l < 7; l++)
-                    {
-                        Console.Write($"{tabellone[v, l]} ");
-                    }
-                    Console.WriteLine();
-                }
-                int i = 0;
-                while (i == 0)
-                {
-                    if (leone.Energia == 0)
-                    {
+                        Console.WriteLine("Il leone ha mangiato il coniglio! Game Over.");
                         break;
                     }
-                    Console.WriteLine("In che direzione vuoi muoverti?");
-                    Console.WriteLine("1 in alto e a sinistra");
-                    Console.WriteLine("2 in alto");
-                    Console.WriteLine("3 in alto e a destra");
-                    Console.WriteLine("4 a destra");
-                    Console.WriteLine("5 in basso e a destra");
-                    Console.WriteLine("6 in basso");
-                    Console.WriteLine("7 in basso e a sinistra");
-                    Console.WriteLine("8 a sinistra");
-                    int direzione = int.Parse(Console.ReadLine());
-                    switch (direzione)
+                }
+                else
+                {
+                    Console.WriteLine("Muovi il leone (1-8):");
+                    int dir = int.Parse(Console.ReadLine());
+                    leone.Muoviti(dir);
+
+                    coniglio.Muoviti(rnd.Next(1, 9));
+
+                    // Carota perde energia
+                    carota.Energia--;
+                    carota.VerificaMorte();
+
+                    if (coniglio.X == leone.X && coniglio.Y == leone.Y)
                     {
-                        case 1:
-                            tabellone[x, y] = "O";
-                            x -= 1;
-                            y -= 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 2:
-                            tabellone[x, y] = "O";
-                            y -= 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 3:
-                            tabellone[x, y] = "O";
-                            x += 1;
-                            y -= 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 4:
-                            tabellone[x, y] = "O";
-                            x += 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 5:
-                            tabellone[x, y] = "O";
-                            x += 1;
-                            y += 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 6:
-                            tabellone[x, y] = "O";
-                            y += 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 7:
-                            tabellone[x, y] = "O";
-                            x -= 1;
-                            y += 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
-                        case 8:
-                            tabellone[x, y] = "O";
-                            x -= 1;
-                            tabellone[x, y] = "l";
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    tabellone[v, l] = "-";
-                                }
-                            }
-                            for (int v = 0; v < 7; v++)
-                            {
-                                for (int l = 0; l < 7; l++)
-                                {
-                                    Console.Write($"{tabellone[v, l]} ");
-                                }
-                                Console.WriteLine();
-                            }
-                            break;
+                        Console.WriteLine("Il leone ha mangiato il coniglio! Game Over.");
+                        break;
                     }
                 }
+
+                Console.ReadKey();
             }
         }
 
-        public string LeoneMorto()
+        static void InizializzaTabellone(string[,] tab)
         {
-            string messaggio="Oh no! La stanchezza ha avuto la meglio!";
-            return messaggio;
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 7; j++)
+                    tab[i, j] = "-";
         }
 
-        public void CongiglioMorto()
+        static void AggiornaTabellone(string[,] tab, CConiglio c, CLeone l, CCarota t)
         {
-            Console.WriteLine("Oh no! Il leone mi ha preso!");
+            InizializzaTabellone(tab);
+            tab[c.X, c.Y] = "c";
+            tab[l.X, l.Y] = "l";
+            tab[t.X, t.Y] = "t";
+        }
+
+        static void StampaTabellone(string[,] tab)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                    Console.Write(tab[i, j] + " ");
+                Console.WriteLine();
+            }
+        }
+
+        static CCarota GeneraCarota(string[,] tab, CLeone l, CConiglio c)
+        {
+            int x, y;
+            do
+            {
+                x = rnd.Next(0, 7);
+                y = rnd.Next(0, 7);
+            } while ((x == l.X && y == l.Y) || (x == c.X && y == c.Y));
+
+            return new CCarota(x, y);
+        }
+
+        static CCarota RespawnCarota(string[,] tab, CLeone l, CConiglio c)
+        {
+            Console.WriteLine("La carota è ricresciuta altrove!");
+            return GeneraCarota(tab, l, c);
+        }
+
+        static void PersonaggioMorto(CPersonaggio p)
+        {
+            if (p is CLeone)
+                Console.WriteLine("Il leone è morto! Game Over.");
+            else if (p is CConiglio)
+                Console.WriteLine("Il coniglio è morto! Game Over.");
+
+            Environment.Exit(0);
+        }
+
+        static void CarotaMorta(CPersonaggio p)
+        {
+            Console.WriteLine("La carota è marcita e ricresce!");
         }
     }
 }

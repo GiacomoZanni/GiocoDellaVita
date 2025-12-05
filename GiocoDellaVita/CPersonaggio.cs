@@ -8,33 +8,25 @@ namespace GiocoDellaVita
 {
     abstract class CPersonaggio : IAnimale
     {
-        public event EventHandler SonoMorto;
+        public int Energia { get; set; }
+        public int X { get; protected set; }
+        public int Y { get; protected set; }
 
-        private int _energia;
-        protected int _x;
-        protected int _y;
+        public event Action<CPersonaggio> PersonaggioMorto;
 
-        public int Energia
+        public abstract void Mangia();
+        public abstract void Muoviti(int direzione);
+
+        protected void ControllaBordo(ref int x, ref int y)
         {
-            get { return _energia; }
-            set { _energia = value; }
+            x = Math.Max(0, Math.Min(6, x));
+            y = Math.Max(0, Math.Min(6, y));
         }
 
-        public CPersonaggio() { }
-
-        public virtual void Mangia()
+        public void VerificaMorte()
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual void Muoviti(int x, int y)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected virtual void OnSonoMorto()
-        {
-            SonoMorto?.Invoke(this, EventArgs.Empty);
+            if (Energia <= 0)
+                PersonaggioMorto?.Invoke(this);
         }
     }
 }

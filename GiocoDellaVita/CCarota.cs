@@ -8,11 +8,15 @@ namespace GiocoDellaVita
 {
     internal class CCarota : CPersonaggio
     {
-        public CCarota(int x, int y) : base()
+        public CCarota(int x, int y)
         {
+            X = x;
+            Y = y;
             Energia = 10;
-            _x = x;
-            _y = y;
         }
+
+        public override void Mangia() { }
+
+        public override void Muoviti(int direzione) { }
     }
 }

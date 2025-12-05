@@ -8,7 +8,7 @@ namespace GiocoDellaVita
 {
     internal interface IAnimale
     {
-        public void Mangia();
-        public void Muoviti(int x, int y);
+        void Muoviti(int direzione);
+        void Mangia();
     }
 }
