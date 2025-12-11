@@ -23,7 +23,7 @@ namespace GiocoDellaVita
             y = Math.Max(0, Math.Min(6, y));
         }
 
-        public void VerificaMorte()
+        public void OnPersonaggioMorto()
         {
             if (Energia <= 0)
                 PersonaggioMorto?.Invoke(this, this);

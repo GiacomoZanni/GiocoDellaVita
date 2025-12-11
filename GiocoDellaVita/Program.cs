@@ -35,7 +35,7 @@
 
                     // La carota perde energia se il coniglio si muove
                     carota.Energia--;
-                    carota.VerificaMorte();
+                    carota.OnPersonaggioMorto();
 
                     // Coniglio mangia la carota
                     if (coniglio.X == carota.X && coniglio.Y == carota.Y)
@@ -64,7 +64,7 @@
 
                     // Carota perde energia
                     carota.Energia--;
-                    carota.VerificaMorte();
+                    carota.OnPersonaggioMorto();
 
                     if (coniglio.X == leone.X && coniglio.Y == leone.Y)
                     {
@@ -126,8 +126,6 @@
                 Console.WriteLine("Il leone è morto! Game Over.");
             else if (p is CConiglio)
                 Console.WriteLine("Il coniglio è morto! Game Over.");
-
-            Environment.Exit(0);
         }
 
         static void CarotaMorta(object sender, CPersonaggio p)

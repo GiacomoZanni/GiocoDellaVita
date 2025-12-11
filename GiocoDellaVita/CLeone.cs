@@ -35,7 +35,7 @@
             Y = ny;
 
             Energia--;
-            VerificaMorte();
+            OnPersonaggioMorto();
         }
     }
 }

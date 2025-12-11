@@ -41,7 +41,7 @@ namespace GiocoDellaVita
             Y = ny;
 
             Energia--;
-            VerificaMorte();
+            OnPersonaggioMorto();
         }
     }
 }
