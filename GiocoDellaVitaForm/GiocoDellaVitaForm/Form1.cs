@@ -10,6 +10,8 @@ namespace GiocoDellaVitaForm
         bool leonescelto = false;
         bool coniglioscelto = false;
 
+
+
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +25,8 @@ namespace GiocoDellaVitaForm
                     tab[i, j] = "-";
             coniglio = new CConiglio(0, 0);
             leone = new CLeone(6, 6);
+            leone.PersonaggioMorto += Morto;
+            coniglio.PersonaggioMorto += Morto;
             carota = GeneraCarota();
             AggiornaTabella();
             StampaMatriceSuTextBox();
@@ -249,6 +253,18 @@ namespace GiocoDellaVitaForm
                 leone.Muoviti(mov);
             }
             AggiornaTabella();
+        }
+
+        private void Morto(object sender, CPersonaggio p)
+        {
+            if (leone.Energia <= 0)
+            {
+                textBox50.Text = "Il leone è morto! GAME OVER";
+            }
+            else if (coniglio.Energia <= 0)
+            {
+                textBox50.Text = "Il coniglio è morto! GAME OVER";
+            }
         }
     }
 }

@@ -88,6 +88,7 @@
             button7 = new Button();
             button8 = new Button();
             button1 = new Button();
+            textBox50 = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -160,6 +161,7 @@
             tableLayoutPanel1.Controls.Add(button7, 5, 8);
             tableLayoutPanel1.Controls.Add(button8, 6, 8);
             tableLayoutPanel1.Controls.Add(button1, 3, 7);
+            tableLayoutPanel1.Controls.Add(textBox50, 2, 7);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -680,6 +682,14 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // textBox50
+            // 
+            textBox50.Anchor = AnchorStyles.None;
+            textBox50.Location = new Point(231, 363);
+            textBox50.Name = "textBox50";
+            textBox50.Size = new Size(108, 23);
+            textBox50.TabIndex = 60;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -756,5 +766,6 @@
         private Button button7;
         private Button button8;
         private Button button1;
+        private TextBox textBox50;
     }
 }

@@ -120,7 +120,7 @@
             return GeneraCarota(tab, l, c);
         }
 
-        static void PersonaggioMorto(CPersonaggio p)
+        static void PersonaggioMorto(object sender, CPersonaggio p)
         {
             if (p is CLeone)
                 Console.WriteLine("Il leone è morto! Game Over.");
@@ -130,7 +130,7 @@
             Environment.Exit(0);
         }
 
-        static void CarotaMorta(CPersonaggio p)
+        static void CarotaMorta(object sender, CPersonaggio p)
         {
             Console.WriteLine("La carota è marcita e ricresce!");
         }

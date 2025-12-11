@@ -12,7 +12,7 @@ namespace GiocoDellaVita
         public int X { get; protected set; }
         public int Y { get; protected set; }
 
-        public event Action<CPersonaggio> PersonaggioMorto;
+        public event EventHandler<CPersonaggio> PersonaggioMorto;
 
         public abstract void Mangia();
         public abstract void Muoviti(int direzione);
@@ -26,7 +26,7 @@ namespace GiocoDellaVita
         public void VerificaMorte()
         {
             if (Energia <= 0)
-                PersonaggioMorto?.Invoke(this);
+                PersonaggioMorto?.Invoke(this, this);
         }
     }
 }

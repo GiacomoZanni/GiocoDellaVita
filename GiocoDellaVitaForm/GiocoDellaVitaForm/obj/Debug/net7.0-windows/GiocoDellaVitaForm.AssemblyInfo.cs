@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GiocoDellaVitaForm")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a65a3970d6a17c0f972e16f43d0bf75f6737dafe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("GiocoDellaVitaForm")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GiocoDellaVitaForm")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
